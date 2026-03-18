@@ -15,7 +15,7 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "clean": "rimraf dist",
-    "dev": "nodemon dist/server.js"
+    "dev": "nodemon server.js"
   },
   "keywords": [
     "mcp",
