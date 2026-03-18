@@ -16,6 +16,7 @@ import { D365Connection } from "./d365/connection.js";
 import { registerMetadataTools } from "./tools/metadata/index.js";
 import { registerPluginTools } from "./tools/plugins/index.js";
 import { logger } from "./utils/logger.js";
+import { registerApiTools } from "./tools/api/importFromApi.js";
 
 // Load environment variables
 dotenv.config();
@@ -114,6 +115,10 @@ class D365MCPServer {
     // Register plugin tools (Phase 1)
     const pluginTools = registerPluginTools();
     pluginTools.forEach((tool) => this.tools.set(tool.name, tool));
+
+    // Register API integration tools
+    const apiTools = registerApiTools();
+    apiTools.forEach((tool) => this.tools.set(tool.name, tool));
 
     logger.info(`Registered ${this.tools.size} tools`);
   }

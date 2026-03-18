@@ -62,20 +62,23 @@ export class D365Connection {
     logger.debug("Acquiring new access token...");
 
     try {
-      const tokenEndpoint = `https://login.microsoftonline.com/${this.config.tenantId}/oauth2/v2.0/token`;
-
+      const tokenEndpoint = `https://login.microsoftonline.com/${this.config.tenantId}/oauth2/token`;
+      
       const params = new URLSearchParams({
         client_id: this.config.clientId,
         client_secret: this.config.clientSecret,
-        scope: `${this.config.url}/.default`,
+        resource: this.config.url,
         grant_type: "client_credentials",
       });
+      logger.info(this.config.clientId, this.config.clientSecret, this.config.url)
+      logger.error("tokenEndpoint: ", tokenEndpoint, params)
 
       const response = await axios.post(tokenEndpoint, params.toString(), {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
+      logger.info(response.data)
 
       const token: string = response.data.access_token;
       this.accessToken = token;
